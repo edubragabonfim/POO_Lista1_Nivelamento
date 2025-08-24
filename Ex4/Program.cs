@@ -56,11 +56,47 @@ namespace Ex4
             return sb.ToString();
         }
 
+        static string Descriptografia(string mensagem)
+        {
+            int tamanho = mensagem.Length;
+            int linhas = tamanho / 5;
+            char[] vtr_mensagem = mensagem.ToCharArray();
+            int contador = 0;
+
+            StringBuilder sb = new StringBuilder();
+
+            char[,] mtz_mensagem = new char[linhas, 5];
+
+            for (int j = 0; j < mtz_mensagem.GetLength(1); j++)
+            {
+                for (int i = 0; i < mtz_mensagem.GetLength(0); i++)
+                {
+                    mtz_mensagem[j, i] = vtr_mensagem[contador];
+                    contador++;
+                }
+            }
+
+            for (int j = 0; j < mtz_mensagem.GetLength(1)-1; j++)
+            {
+                for (int i = 0; i < mtz_mensagem.GetLength(0); i++)
+                {
+                    sb.Append(mtz_mensagem[i, j]);
+                }
+            }
+
+            return sb.ToString();
+        }
+
         static void Main(string[] args)
         {
             // "mgea*eec *nmr *s e *ast *
-            string retorno = Criptografia("mensagem secreta");
-            Console.WriteLine(retorno);         
+            string mensagem = "mensagem secreta";
+
+            string mensagem_criptografada = Criptografia(mensagem);
+            Console.WriteLine($"Mensagem Criptografada: {mensagem_criptografada}");
+
+            string mensagem_descriptografada = Descriptografia(mensagem_criptografada);
+            Console.WriteLine($"Mensagem Descriptografada: {mensagem_descriptografada}");
         }
     }
 }
